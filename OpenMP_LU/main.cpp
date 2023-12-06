@@ -6,8 +6,16 @@ void read_from_file(double* matrix_A, const char* path)
 // error handling is for girls
 {
     FILE* f;
+
+// when reading from "matrix_A.txt"
     f = fopen(path, "rb");
     fread(matrix_A, SIZE*SIZE, sizeof(double), f);
+
+// when reading from "A.txt"
+//     f = fopen(path, "r");
+//     for (int i = 0; i < SIZE*SIZE; i++)
+//         fscanf(f, "%lf ", (matrix_A + i));
+
     fclose(f);
     return;
 }
@@ -61,7 +69,7 @@ void decompose(double* matrix_A, double* matrix_L, double* matrix_U, int depth)
 void save_matrix(double* matrix_L, const char* path)
 {
     FILE* f;
-    f = fopen(path, "wb");
+    f = fopen(path, "w");
     for (int i = 0; i < SIZE; i++)
     {
         for (int j = 0; j < SIZE; j++)
@@ -81,8 +89,9 @@ int main()
     double matrix_U[SIZE * SIZE] = {0};
 
 //     did i mention that reading arguments from the command line is for girls?
-    read_from_file(matrix_A, "matrix_A.txt"); //SIZE = 10
-//     print_matrix(matrix_A); //SIZE = 3
+    read_from_file(matrix_A, "matrix_A.txt"); // SIZE = 10
+//     read_from_file(matrix_A, "A.txt"); // SIZE = 3
+//     print_matrix(matrix_A);
     decompose(matrix_A, matrix_L, matrix_U, 0);
     save_matrix(matrix_L, "matrix_L.txt");
     save_matrix(matrix_U, "matrix_U.txt");
